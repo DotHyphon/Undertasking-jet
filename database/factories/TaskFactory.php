@@ -19,7 +19,8 @@ class TaskFactory extends Factory
         return [
             'user_id' => 1,
             'title' => $this->faker->sentence,
-            'date' => $this->faker->dateTimeBetween('-1 week', '+1 week'),
+            'week' => $this->faker->numberBetween(1, 52),
+            'day' => $this->faker->numberBetween(0, 4),
         ];
     }
 }

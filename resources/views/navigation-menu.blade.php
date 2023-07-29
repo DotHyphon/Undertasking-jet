@@ -11,13 +11,13 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="flex space-x-8 sm:-my-px sm:ml-10">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="/tasks/create">
+                <div class="flex space-x-8 sm:-my-px sm:ml-10">
+                    <x-nav-link href="/tasks">
                         {{ __('My Tasks') }}
                     </x-nav-link>
                 </div>

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Task;
+use app\http\controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,12 +22,14 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
-Route::get('/tasks/create', function () {
+Route::get('/tasks', function () {
     if(auth()->user()){
         return view('/tasks/create');
     }
     return view('auth/login');
 });
+
+Route::post('/tasks/create', [TaskController::class, 'create'])->middleware('auth');
 
 Route::middleware([
     'auth:sanctum',
