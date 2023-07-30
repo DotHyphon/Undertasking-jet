@@ -17,10 +17,7 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => 1,
-            'title' => $this->faker->sentence,
-            'week' => $this->faker->numberBetween(1, 52),
-            'day' => $this->faker->numberBetween(0, 4),
+            //
         ];
     }
 }

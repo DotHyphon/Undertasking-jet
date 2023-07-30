@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Task;
-use app\http\controllers\TaskController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +23,13 @@ Route::get('/', function () {
 });
 
 Route::get('/tasks', function () {
+    if(auth()->user()){
+        return view('/tasks/view');
+    }
+    return view('auth/login');
+});
+
+Route::get('/tasks/edit', function () {
     if(auth()->user()){
         return view('/tasks/create');
     }

@@ -17,7 +17,7 @@
                     </x-nav-link>
                 </div>
                 <div class="flex space-x-8 sm:-my-px sm:ml-10">
-                    <x-nav-link href="/tasks">
+                    <x-nav-link href="/tasks/edit">
                         {{ __('My Tasks') }}
                     </x-nav-link>
                 </div>
