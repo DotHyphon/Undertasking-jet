@@ -23,4 +23,11 @@ class TaskController extends Controller
             'message' => 'Task created successfully'
         ]);
     }
+
+    public function view($id)
+    {
+        return view('tasks/view', [
+            'task' => Task::findOrFail($id)
+        ]);
+    }
 }

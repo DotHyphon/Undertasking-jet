@@ -29,6 +29,8 @@ Route::get('/tasks', function () {
     return view('auth/login');
 });
 
+Route::get('/tasks/{id}', [TaskController::class, 'view'])->middleware('auth');
+
 Route::post('/tasks/create', [TaskController::class, 'create'])->middleware('auth');
 
 Route::middleware([
