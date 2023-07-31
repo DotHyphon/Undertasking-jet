@@ -6,9 +6,6 @@ $taskList = ['Voicemails', 'Afterhours', 'Call Queue', 'Emails', 'Tickets'];
 @props(['user', 'canEdit' => false])
 
 
-<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-{{-- tailwind columns don't work without this link --}}
-
 <div class="w-full h-full">
     <div class="p-6 bg-white rounded-lg shadow-2xl shadow-gray-500/20">
         <h2 class="block text-xl font-semibold text-gray-900">{{$user->name}}</h2>
@@ -19,7 +16,7 @@ $taskList = ['Voicemails', 'Afterhours', 'Call Queue', 'Emails', 'Tickets'];
                 <div class="flex space-x-8 sm:-my-px sm:ml-10">
                     <x-dropdown align="left" width="24">
                         <x-slot name="trigger">
-                            <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700" id="'{{$day}}'Trigger">
+                            <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700">
                                 <span>{{$day}}</span>
                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -28,10 +25,8 @@ $taskList = ['Voicemails', 'Afterhours', 'Call Queue', 'Emails', 'Tickets'];
                         </x-slot>
                 
                         <x-slot name="content">
-                            <input type="text" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" placeholder="Free Text" onclick="event.stopPropagation();" onkeydown="if (event.keyCode === 13) { event.preventDefault(); addTask({{$user->id}}, this.value, '{{Carbon::now()->format('Y')}}', {{Carbon::now()->week()+$week}}, '{{$day}}'); }" />
-
                             @foreach ($taskList as $quickTask)
-                            <button type="button" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="addTask({{$user->id}}, '{{$quickTask}}', '{{Carbon::now()->format('Y')}}', {{Carbon::now()->week()+$week}}, '{{$day}}Trigger')">{{$quickTask}}</button>
+                            <button type="button" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onclick="addTask({{$user->id}}, '{{$quickTask}}', '{{Carbon::now()->format('Y')}}', {{Carbon::now()->week()+$week}}, '{{$day}}')">{{$quickTask}}</button>
                             @endforeach
                         </x-slot>
                     </x-dropdown>
@@ -42,11 +37,11 @@ $taskList = ['Voicemails', 'Afterhours', 'Call Queue', 'Emails', 'Tickets'];
                 </div>
                 @endif
 
+                @if ($canEdit)
+                <input type="text" class="w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" placeholder="Free Text" onkeydown="if (event.keyCode === 13) { addTask({{$user->id}}, this.value, '{{Carbon::now()->format('Y')}}', {{Carbon::now()->week()+$week}}, '{{$day}}');  this.value = ''}" />
+                @endif
                 @foreach ($user->tasks->where('week', Carbon::now()->week()+$week)->where('day', $day) as $task)
                 <x-task-card :task="$task" />
-                {{-- <div class="mt-2">
-                    <p class="text-sm text-gray-600">{{$task->title}}</p>
-                </div> --}}
                 @endforeach
             </div>
             @endforeach

@@ -17,17 +17,19 @@ use App\Http\Controllers\TaskController;
 
 Route::get('/', function () {
     if(auth()->user()){
-        return redirect('/dashboard');
+        return view('/dashboard');
     }
     return view('auth/login');
 });
+
+
 
 Route::get('/tasks', function () {
     if(auth()->user()){
         return view('/tasks/view');
     }
     return view('auth/login');
-});
+})->name('tasks');
 
 Route::get('/tasks/edit', function () {
     if(auth()->user()){
